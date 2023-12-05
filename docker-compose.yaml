@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  invenEz_postgres:
+    container_name: invesEz-postgres
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres-password
+    ports:
+        - '5432:5432'
+    volumes:
+        - data_postgres:/var/lib/postgresql/data
+
+volumes:
+  data_postgres:
