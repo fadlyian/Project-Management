@@ -21,22 +21,31 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'edit articles']);
-        Permission::create(['name' => 'delete articles']);
-        Permission::create(['name' => 'publish articles']);
-        Permission::create(['name' => 'unpublish articles']);
+        // Permission::create(["name" => "admin.view"]);
+        // Permission::create(["name" => "user.view"]);
+        // Permission::create(["name" => "user.edit"]);
+        // Permission::create(["name" => "user.delete"]);
+        // Permission::create(["name" => "role.view"]);
+        // Permission::create(["name" => "role.edit"]);
+        // Permission::create(["name" => "role.delete"]);
+        // Permission::create(["name" => "permission.view"]);
+        // Permission::create(["name" => "permission.edit"]);
+        // Permission::create(["name" => "permission.delete"]);
+
+        // Permission::create(['name' => 'board.view']);
+        // Permission::create(['name' => 'board.edit']);
+        // Permission::create(['name' => 'board.delete']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'writer']);
-        $role1->givePermissionTo('edit articles');
-        $role1->givePermissionTo('delete articles');
+        $role1 = Role::create(['name' => 'member']);
+        // $role1->givePermissionTo('board.view');
 
         $role2 = Role::create(['name' => 'admin']);
-        $role2->givePermissionTo('publish articles');
-        $role2->givePermissionTo('unpublish articles');
+        // $role2->givePermissionTo('permission.view');
+        // $role2->givePermissionTo('permission.edit');
 
         $role3 = Role::create(['name' => 'Super-Admin']);
-        $role3->givePermissionTo(Permission::all());
+        // $role3->givePermissionTo(Permission::all());
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
@@ -45,7 +54,7 @@ class PermissionSeeder extends Seeder
             'email' => 'test@gmail.com',
             'password' => Hash::make('password'),
         ]);
-        $user->assignRole($role1);
+        $user->assignRole([$role1, $role2]);
 
         $user = User::factory()->create([
             'name' => 'Admin User',
