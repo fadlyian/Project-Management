@@ -19,23 +19,31 @@ export default function Authenticated({ user, header, children }) {
                 <SideBar></SideBar>
 
                 <div className='flex flex-col flex-1 h-screen'>
-                    <div className='p-3'>
-                        <p>halodek</p>
+                    {/* HEADER */}
+                    <div className='flex flex-row justify-between p-2'>
+                        <p className='font-bold bg-red-200 my-auto'>{header}</p>
+
+                        {/* avatar */}
+                        <div className="avatar placeholder flex gap-1">
+                            <div className="bg-neutral text-neutral-content rounded-full w-8">
+                                <span className="text-xs">UI</span>
+                            </div>
+                            <div className="bg-neutral text-neutral-content rounded-full w-8">
+                                <span className="text-xs">UI</span>
+                            </div>
+                            <div className="bg-neutral text-neutral-content rounded-full w-8">
+                                <span className="text-xs">UI</span>
+                            </div>
+
+                            {/* Add User */}
+                            <button className="bg-gray-400 text-neutral-content rounded-full w-8">
+                                <span className="text-lg">+</span>
+                            </button>
+                        </div>
                     </div>
                     {children}
                 </div>
             </div>
         </div>
-
-        // <div className="flex h-full">
-        //     <SideBar></SideBar>
-
-        //     <div className="bg-red-400 w-full">
-        //         <Navbar header={header} user={user}></Navbar>
-        //         <main className="p-2 md:p-6">
-        //             {children}
-        //         </main>
-        //     </div>
-        // </div>
     );
 }
