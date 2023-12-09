@@ -6,17 +6,16 @@ export default function Dashboard({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+            header={'Dashboard'}
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">You're logged in!</div>
-                    </div>
-                </div>
+
+            {/* Content */}
+            <div className='h-full bg-red-300'>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo eaque minima dolorum nulla! Et, voluptate mollitia culpa dicta repudiandae cupiditate officia voluptatum impedit ea accusantium iste nostrum quas porro reprehenderit quaerat a at enim vel maxime praesentium deleniti aliquam iusto? Perferendis ipsa recusandae iusto? Veritatis delectus aliquid quaerat sint recusandae.</p>
             </div>
+
         </AuthenticatedLayout>
     );
 }
