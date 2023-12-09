@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 
 export default function SideBar()
@@ -44,7 +44,9 @@ export default function SideBar()
 
         <Menu>
             <SubMenu defaultOpen label="Boards" >
-                <MenuItem>halo</MenuItem>
+                <MenuItem>
+                    <Link href={route('project')}></Link>
+                </MenuItem>
                 <MenuItem>dek</MenuItem>
                 <MenuItem>kenalin</MenuItem>
             </SubMenu>

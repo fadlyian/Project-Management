@@ -18,7 +18,7 @@ export default function Authenticated({ user, header, children }) {
             <div className='flex flex-row'>
                 <SideBar></SideBar>
 
-                <div className='flex flex-col flex-1 h-screen'>
+                <div className='flex flex-col flex-1 '>
                     {/* HEADER */}
                     <div className='flex flex-row justify-between p-2'>
                         <p className='font-bold bg-red-200 my-auto'>{header}</p>
