@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Job;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,16 +15,15 @@ class ProjectUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
-            1,
-            1,
-        ];
+        $users = [1,2,3,4,4,3,2,1];
+        $projects= [1,1,1,1,2,2,2,2];
+        $jobs = [1,2,3,4,1,2,3,4];
 
-        foreach($users as $user){
+        for($i=0; $i<count($users); $i++){
             DB::table('project_user')->insert([
-                'user_id' => $user,
-                'project_id' => 1,
-                'role_id' => 1
+                'user_id' => $users[$i],
+                'project_id' => $projects[$i],
+                'job_id' => $jobs[$i]
             ]);
         }
     }

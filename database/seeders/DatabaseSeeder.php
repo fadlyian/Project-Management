@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            PermissionSeeder::class,
+            // PermissionSeeder::class,
+            UserSeeder::class,
             ProjectSeeder::class,
-            ProjectUserSeeder::class,
             JobSeeder::class,
+            ProjectUserSeeder::class,
         ]);
     }
 }
