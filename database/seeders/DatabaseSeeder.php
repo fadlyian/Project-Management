@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             JobSeeder::class,
             ProjectUserSeeder::class,
+            CardSeeder::class,
         ]);
     }
 }
