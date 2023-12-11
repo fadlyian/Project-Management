@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TestingController;
+use App\Models\Project;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,12 +33,28 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/project', [ProjectController::class, 'index'])->name('project');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/testing', [TestingController::class, 'index']);
+
+Route::prefix('project')->group(function(){
+
+    Route::get('/testing', function(){
+        return response()->json([
+            'message' => "Hallo Ini Testing Axios",
+            'status' => 200,
+        ]);
+    })->name('project.testing');
+
+    Route::get('/myProject', [ProjectController::class, 'index'])->name('project.myProject');
+
+
+    Route::get('/{id}', [ProjectController::class, 'getByUser']);
+
 });
 
 require __DIR__.'/auth.php';

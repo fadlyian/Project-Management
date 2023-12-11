@@ -32,4 +32,16 @@ class Project extends Model
         'nameProject'
     ];
 
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'project_user', 'project_id', 'user_id',)->withPivot('job_id');
+        // Project::find(2)->users()->get();
+    }
+
+    public function jobsInUsers()
+    {
+        return $this->belongsToMany(Job::class, 'project_user', 'project_id', 'job_id')->withPivot('user_id');
+        // Project::find(1)->jobsInUsers()->get();
+    }
 }

@@ -43,4 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'project_user', 'user_id', 'project_id')->withPivot('job_id');
+    }
+
+    public function jobsInProjects()
+    {
+        return $this->belongsToMany(Job::class, 'project_user', 'user_id', 'job_id')->withPivot('project_id');
+        // User::find(1)->jobsInProjects()->get();
+    }
 }
