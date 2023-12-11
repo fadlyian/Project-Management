@@ -43,16 +43,8 @@ Route::get('/testing', [TestingController::class, 'index']);
 
 Route::prefix('project')->group(function(){
 
-    Route::get('/testing', function(){
-        return response()->json([
-            'message' => "Hallo Ini Testing Axios",
-            'status' => 200,
-        ]);
-    })->name('project.testing');
-
-    Route::get('/myProject', [ProjectController::class, 'index'])->name('project.myProject');
-
-
+    Route::get('/testing', [ProjectController::class, 'testing'])->name('project.testing');
+    Route::get('/myProject', [ProjectController::class, 'myProject'])->name('project.myProject');
     Route::get('/{id}', [ProjectController::class, 'getByUser']);
 
 });

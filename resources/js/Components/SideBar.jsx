@@ -1,17 +1,33 @@
 import { Link, useForm } from "@inertiajs/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 
-export default function SideBar()
+export default function SideBar({user})
 {
     const { data, setData, post, processing, errors } = useForm({
         title: '',
-      })
+    })
 
-      function submit(e) {
+    const [projects, setProjects] = useState(null);
+
+
+    function submit(e) {
         console.log(e.preventDefault())
         // e.preventDefault()
         // post('/login')
-      }
+    }
+
+    useEffect(() => {
+        axios.get(route('project.myProject'))
+            .then(res => {
+                // console.log(res.data.projects)
+                setProjects(res.data.projects)
+            })
+    }, [])
+
+    console.log(projects)
+
   return (
     <Sidebar className="hidden md:block">
         {/* Button Add Project */}
@@ -43,12 +59,19 @@ export default function SideBar()
         </button> */}
 
         <Menu>
-            <SubMenu defaultOpen label="Boards" >
-                <MenuItem>
-                    <Link href={route('project')}></Link>
-                </MenuItem>
-                <MenuItem>dek</MenuItem>
-                <MenuItem>kenalin</MenuItem>
+            <MenuItem>
+                <Link href={route('dashboard')}>Dashboard</Link>
+                {/* <Link href={route('project')}></Link> */}
+            </MenuItem>
+            <SubMenu defaultOpen label="Projects" >
+                {/* {!projects && (
+                    <MenuItem >belum ada project</MenuItem>
+                )} */}
+                {projects?.map((project, index) => {
+                    return(
+                        <MenuItem key={index}>{project.nameProject}</MenuItem>
+                    )
+                })}
             </SubMenu>
         </Menu>
 

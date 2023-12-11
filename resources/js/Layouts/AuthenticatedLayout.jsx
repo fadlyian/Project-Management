@@ -1,22 +1,15 @@
-import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
 import SideBar from '@/Components/SideBar';
 import Navbar from '@/Components/Navbar';
 
 export default function Authenticated({ user, header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
+    console.log(user);
     return (
         <div className='flex flex-col'>
             {/* NAVBAR */}
             <Navbar user={user}></Navbar>
 
             <div className='flex flex-row'>
-                <SideBar></SideBar>
+                <SideBar user={user}></SideBar>
 
                 <div className='flex flex-col flex-1 '>
                     {/* HEADER */}
