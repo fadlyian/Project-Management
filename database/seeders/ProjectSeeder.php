@@ -22,7 +22,7 @@ class ProjectSeeder extends Seeder
 
         foreach($nameProject as $name){
             DB::table('projects')->insert([
-                'nameProject' => $name,
+                'name_project' => $name,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
