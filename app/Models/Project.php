@@ -29,7 +29,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'nameProject'
+        'name_project'
     ];
 
 

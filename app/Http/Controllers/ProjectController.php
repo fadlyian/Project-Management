@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,28 @@ class ProjectController extends Controller
             'project' => $project,
             'card' => $project->cards()->get(),
             'member' => $project->users()->get(),
+        ]);
+    }
+
+    public function createProject(Request $request)
+    {
+        $user = Auth::user();
+        $job = Job::where('name_job', 'admin')->first();
+
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $project = Project::create([
+            'name_project' => $request->name
+        ]);
+
+        $project->users()->attach($user->id,[
+            'job_id' => $job->job_id,
+        ]);
+
+        return response()->json([
+            'message' => 'Project berhasil ditambahkan'
         ]);
     }
 }

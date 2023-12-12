@@ -7,8 +7,8 @@ export default function Project({ auth, project, card, member }) {
     const [detailProject, setDetailProject] = useState(project);
     const [cards, setCard] = useState(card);
 
-    console.log(detailProject);
-    console.log(cards);
+    // console.log(detailProject);
+    // console.log(cards);
     return (
         <AuthenticatedLayout
             user={auth.user}

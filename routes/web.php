@@ -49,6 +49,8 @@ Route::prefix('project')->group(function(){
 
     Route::get('/detailProject/{id}', [ProjectController::class, 'detailProject'])->name('project.detail');
 
+    Route::post('/project', [ProjectController::class, 'createProject'])->name('project.createProject');
+
 });
 
 require __DIR__.'/auth.php';

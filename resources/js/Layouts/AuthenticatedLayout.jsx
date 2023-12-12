@@ -3,7 +3,7 @@ import Navbar from '@/Components/Navbar';
 
 export default function Authenticated({ user, header, children, member=null }) {
     // console.log(user);
-    console.log(member)
+    // console.log(member)
     return (
         <div className='flex flex-col'>
             {/* NAVBAR */}
@@ -20,8 +20,8 @@ export default function Authenticated({ user, header, children, member=null }) {
                         {member && (
                             <div className='flex gap-3 min-h-min'>
                                 {/* Add User */}
-                                <button className="bg-gray-400 text-neutral-content rounded-2xl px-3">
-                                    <span className="text-base">Add Member +</span>
+                                <button className="bg-gray-400 hover:bg-gray-500 text-neutral-content rounded-2xl px-3">
+                                    <span className="text-base text-white">Add Member +</span>
                                 </button>
 
                                 {/* avatar */}

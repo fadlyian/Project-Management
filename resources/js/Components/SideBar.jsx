@@ -1,4 +1,4 @@
-import { Link, useForm } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
@@ -6,17 +6,23 @@ import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 export default function SideBar({user})
 {
     const { data, setData, post, processing, errors } = useForm({
-        title: '',
+        name: '',
     })
-
-    const [projects, setProjects] = useState(null);
-
-
     function submit(e) {
-        console.log(e.preventDefault())
         // e.preventDefault()
-        // post('/login')
+        axios.post(route('project.createProject'), {
+            name : data.name,
+        }).then((res) => {
+            console.log(res);
+
+            setAlert
+        })
     }
+
+    // console.log(data)
+
+    // LIST PROJECTS==============================
+    const [projects, setProjects] = useState(null);
 
     useEffect(() => {
         axios.get(route('project.myProject'))
@@ -25,9 +31,7 @@ export default function SideBar({user})
                 setProjects(res.data.projects)
             })
     }, [])
-
-    // console.log(projects)
-
+    // END LIST PROJECTS==========================
   return (
     <Sidebar className="hidden md:block">
         {/* Button Add Project */}
@@ -42,8 +46,8 @@ export default function SideBar({user})
                     <h3 className="font-bold text-lg pb-4 m-auto">Tambah Project</h3>
 
                     <form onSubmit={submit} className="flex flex-col">
-                            <input type="text" placeholder="Masukan Title Baru" className="input input-bordered w-full max-w-" value={data.title} onChange={e => setData('title', e.target.value)} />
-                            {errors.title && <div>{errors.title}</div>}
+                            <input type="text" placeholder="Masukan Nama Project Baru" className="input input-bordered w-full max-w-" value={data.name} onChange={e => setData('name', e.target.value)} />
+                            {errors.name && <div>{errors.name}</div>}
 
                         <button type="submit" disabled={processing} className="btn btn-outline btn-accent mt-3">Tambah</button>
                     </form>
@@ -53,10 +57,6 @@ export default function SideBar({user})
                 </form>
             </dialog>
         </div>
-        {/* <button className="flex justify-center gap-3 py-2 w-full bg-blue-600">
-            <label className="text-2xl font-bold text-white">Project</label>
-            <a href="" className="text-2xl text-white hover:bg-blue-400">+</a>
-        </button> */}
 
         <Menu>
             <Link href={route('dashboard')}>
