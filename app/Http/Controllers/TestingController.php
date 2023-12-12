@@ -12,6 +12,8 @@ class TestingController extends Controller
 {
     public function index(){
         // return Auth::user()->projects()->get();
-        return Project::first()->cards()->get();
+        $project = Project::findOrFail(2);
+        return $project->users()->get();
+        return $project->pivot()->users()->groupBy('user_id')->get();
     }
 }

@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Project({ auth, project, card }) {
+export default function Project({ auth, project, card, member }) {
 
     const [detailProject, setDetailProject] = useState(project);
     const [cards, setCard] = useState(card);
@@ -13,6 +13,7 @@ export default function Project({ auth, project, card }) {
         <AuthenticatedLayout
             user={auth.user}
             header={detailProject.name_project}
+            member={member}
         >
             <Head title={`Project `+detailProject.name_project} />
 
