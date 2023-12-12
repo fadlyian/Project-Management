@@ -51,6 +51,8 @@ Route::prefix('project')->group(function(){
 
     Route::post('/project', [ProjectController::class, 'createProject'])->name('project.createProject');
 
+    Route::delete('/delete/{id}', [ProjectController::class, 'deleteProject'])->name('project.deleteProject');
+
 });
 
 require __DIR__.'/auth.php';

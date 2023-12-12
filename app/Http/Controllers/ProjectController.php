@@ -54,4 +54,22 @@ class ProjectController extends Controller
             'message' => 'Project berhasil ditambahkan'
         ]);
     }
+
+    public function deleteProject(string $id)
+    {
+        try {
+            $project = Project::findOrFail($id);
+            $project->users()->detach();
+            $project->delete();
+
+            // $project->jobsInUsers()->detach();
+
+            return response()->json([
+                'message' => 'project berhasil dihapus'
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+    }
 }
