@@ -1,32 +1,24 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 
-export default function Project({ auth }) {
-    // console.log(auth);
+export default function Project({ auth, project, card }) {
+
+    const [detailProject, setDetailProject] = useState(project);
+    const [cards, setCard] = useState(card);
+
+    console.log(detailProject);
+    console.log(cards);
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={'Project'}
+            header={detailProject.name_project}
         >
-            <Head title="Project" />
+            <Head title={`Project `+detailProject.name_project} />
 
-
-            {/* Content */}
-            <div className='p-3 flex bg-red-300'>
-                {/* CARD */}
-                <div className="card w-96 bg-base-100 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="card-title">Card title!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-
-
-                {/* Open the modal using document.getElementById('ID').showModal() method */}
-                <button className="btn" onClick={()=>document.getElementById('my_modal_card').showModal()}>open modal</button>
+            <div className='p-3 flex flex-col gap-2 bg-red-300'>
+                {/*  */}
+                <button className="btn w-36" onClick={()=>document.getElementById('my_modal_card').showModal()}>Add Card</button>
                 <dialog id="my_modal_card" className="modal">
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Hello!</h3>
@@ -36,7 +28,22 @@ export default function Project({ auth }) {
                         <button>close</button>
                     </form>
                 </dialog>
-                {/* <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo eaque minima dolorum nulla! Et, voluptate mollitia culpa dicta repudiandae cupiditate officia voluptatum impedit ea accusantium iste nostrum quas porro reprehenderit quaerat a at enim vel maxime praesentium deleniti aliquam iusto? Perferendis ipsa recusandae iusto? Veritatis delectus aliquid quaerat sint recusandae.</p> */}
+
+                {/* Card */}
+                <div className='flex flex-wrap gap-2 '>
+                    {cards.map((card, index) => (
+                        <div className="card w-96 bg-base-100 shadow-xl" key={index}>
+                            <div className="card-body">
+                                <h2 className="card-title">{card.title}</h2>
+                                {/* <p>{card.description}</p> */}
+                                <div className="card-actions justify-center">
+                                    <button className="btn btn-primary">View Detail</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
             </div>
 
         </AuthenticatedLayout>

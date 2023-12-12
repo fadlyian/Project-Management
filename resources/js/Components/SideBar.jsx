@@ -26,7 +26,7 @@ export default function SideBar({user})
             })
     }, [])
 
-    console.log(projects)
+    // console.log(projects)
 
   return (
     <Sidebar className="hidden md:block">
@@ -59,17 +59,22 @@ export default function SideBar({user})
         </button> */}
 
         <Menu>
-            <MenuItem>
-                <Link href={route('dashboard')}>Dashboard</Link>
-                {/* <Link href={route('project')}></Link> */}
-            </MenuItem>
+            <Link href={route('dashboard')}>
+                <MenuItem>
+                    Dashboard
+                </MenuItem>
+            </Link>
             <SubMenu defaultOpen label="Projects" >
                 {/* {!projects && (
                     <MenuItem >belum ada project</MenuItem>
                 )} */}
                 {projects?.map((project, index) => {
                     return(
-                        <MenuItem key={index}>{project.nameProject}</MenuItem>
+                        <Link href={route("project.detail", project.project_id)}>
+                            <MenuItem key={index}>
+                                {project.name_project}
+                            </MenuItem>
+                        </Link>
                     )
                 })}
             </SubMenu>

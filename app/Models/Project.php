@@ -44,4 +44,9 @@ class Project extends Model
         return $this->belongsToMany(Job::class, 'project_user', 'project_id', 'job_id')->withPivot('user_id');
         // Project::find(1)->jobsInUsers()->get();
     }
+
+    public function cards()
+    {
+        return $this->hasMany(Card::class, 'project_id');
+    }
 }

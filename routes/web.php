@@ -44,8 +44,10 @@ Route::get('/testing', [TestingController::class, 'index']);
 Route::prefix('project')->group(function(){
 
     Route::get('/testing', [ProjectController::class, 'testing'])->name('project.testing');
+
     Route::get('/myProject', [ProjectController::class, 'myProject'])->name('project.myProject');
-    Route::get('/{id}', [ProjectController::class, 'getByUser']);
+
+    Route::get('/detailProject/{id}', [ProjectController::class, 'detailProject'])->name('project.detail');
 
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,9 +18,16 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function getByUser(string $id)
+    public function detailProject(string $id)
     {
-        return $id;
-        return Inertia::render('Project/Project');
+        // return Project::findOrFail($id);
+        $project = Project::findOrFail($id);
+        // return $project->cards()->get();
+        // return response()->json($p);
+
+        return Inertia::render('Project/Project',[
+            'project' => $project,
+            'card' => $project->cards()->get(),
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,9 @@ class CardSeeder extends Seeder
                 'project_id' => $projects[$i],
                 'title' => $title[$i],
                 'description' => $description[$i],
-                'image' => null
+                'image' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
     }

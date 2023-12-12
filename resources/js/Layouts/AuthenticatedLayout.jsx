@@ -2,7 +2,7 @@ import SideBar from '@/Components/SideBar';
 import Navbar from '@/Components/Navbar';
 
 export default function Authenticated({ user, header, children }) {
-    console.log(user);
+    // console.log(user);
     return (
         <div className='flex flex-col'>
             {/* NAVBAR */}
