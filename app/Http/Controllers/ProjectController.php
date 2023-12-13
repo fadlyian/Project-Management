@@ -51,7 +51,8 @@ class ProjectController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Project berhasil ditambahkan'
+            'message' => 'Project berhasil ditambahkan',
+            'project_id' => $project->project_id,
         ]);
     }
 

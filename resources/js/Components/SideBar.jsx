@@ -11,11 +11,12 @@ export default function SideBar({user})
 
     // Button Create
     function submit(e) {
-        // e.preventDefault()
+        e.preventDefault()
         axios.post(route('project.createProject'), {
             name : data.name,
         }).then((res) => {
             console.log(res);
+            router.get(route('project.detail', res.data.project_id))
         })
     }
     // End Button Create
