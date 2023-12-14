@@ -16,6 +16,7 @@ class CardSeeder extends Seeder
     {
 
         $projects = [1,1,1,2,2,2];
+        $jobs = [2,3,4,4,3,2];
         $title = [
             'Design Authentication',
             'Slicing Authentication',
@@ -36,6 +37,7 @@ class CardSeeder extends Seeder
         for($i=0; $i<count($title); $i++){
             DB::table('cards')->insert([
                 'project_id' => $projects[$i],
+                'job_id' => $jobs[$i],
                 'title' => $title[$i],
                 'description' => $description[$i],
                 'image' => null,

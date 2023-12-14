@@ -30,6 +30,7 @@ class Card extends Model
      */
     protected $fillable = [
         'project_id',
+        'job_id',
         'title',
         'description',
         'image',

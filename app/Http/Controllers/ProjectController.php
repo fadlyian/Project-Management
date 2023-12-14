@@ -30,6 +30,7 @@ class ProjectController extends Controller
             'project' => $project,
             'card' => $project->cards()->get(),
             'member' => $project->users()->get(),
+            'jobs' => Job::all()->except([1]),
         ]);
     }
 

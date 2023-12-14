@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TestingController;
@@ -53,6 +54,10 @@ Route::prefix('project')->group(function(){
 
     Route::delete('/delete/{id}', [ProjectController::class, 'deleteProject'])->name('project.deleteProject');
 
+    Route::prefix('Card')->group(function() {
+
+        Route::post('/store', [CardController::class, 'createCard'])->name('project.card.createCard');
+    });
 });
 
 require __DIR__.'/auth.php';

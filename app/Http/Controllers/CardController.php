@@ -3,63 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function createCard(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'job' => 'required',
+                'image' => 'nullable|image',
+            ]);
+
+            if($request->hasFile('image')){
+
+                // Formulir membawa file gambar
+                $image = $request->file('image');
+
+                // Generate nama unik berdasarkan waktu saat ini
+                $imageName = now()->format('YmdHis') . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+
+                // Simpan file ke direktori public
+                $imagePath = $image->storeAs('cards', $imageName, 'public');
+
+            }else{
+                $imagePath = null;
+            }
+
+            $card = Card::create([
+                'project_id' => $request->project_id,
+                'job_id' => $request->job,
+                'title' => $request->title,
+                'description' => $request->description,
+                'image' => $imagePath,
+
+            ]);
+
+            return response()->json([
+                $request->all(),
+            ]);
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Card $card)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Card $card)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Card $card)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Card $card)
-    {
-        //
-    }
 }

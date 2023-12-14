@@ -29,6 +29,6 @@ class Job extends Model
      * @var array
      */
     protected $fillable = [
-        'nameJob'
+        'name_job'
     ];
 }

@@ -15,7 +15,7 @@ export default function SideBar({user})
         axios.post(route('project.createProject'), {
             name : data.name,
         }).then((res) => {
-            console.log(res);
+            // console.log(res);
             router.get(route('project.detail', res.data.project_id))
         })
     }
