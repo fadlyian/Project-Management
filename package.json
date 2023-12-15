@@ -21,7 +21,6 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "react-modal": "^3.16.1",
         "react-pro-sidebar": "^1.1.0-alpha.1"
     }
 }
