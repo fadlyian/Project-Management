@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\Project;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -73,5 +75,27 @@ class ProjectController extends Controller
             throw $th;
         }
 
+    }
+
+    public function addMember(Request $request)
+    {
+        try {
+            $request->validate([
+                'project_id' => 'required',
+                'email' => 'required|email',
+                'job' => 'required',
+            ]);
+
+            $user = User::where('email', $request->email)->firstOrFail();
+
+            Project::findOrFail($request->project_id)->users()->attach($user->id,[
+                'job_id' => $request->job,
+            ]);
+
+            return response()->json('berhasil menambahkan email : '. $request->email);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
 }

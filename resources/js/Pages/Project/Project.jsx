@@ -28,6 +28,8 @@ export default function Project({ auth, project, card, member, jobs }) {
             user={auth.user}
             header={detailProject.name_project}
             member={member}
+            project={project}
+            jobs = {jobs}
         >
             <Head title={`Project `+detailProject.name_project} />
 
