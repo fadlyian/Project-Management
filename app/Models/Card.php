@@ -35,4 +35,9 @@ class Card extends Model
         'description',
         'image',
     ];
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class, 'job_id', 'job_id');
+    }
 }
