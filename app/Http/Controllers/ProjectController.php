@@ -28,7 +28,7 @@ class ProjectController extends Controller
 
         return Inertia::render('Project/Project',[
             'project' => $project,
-            'card' => $project->cards()->get(),
+            'card' => $project->cards()->with('job')->get(),
             'member' => $project->users()->get(),
             'jobs' => Job::all()->except([1]),
         ]);

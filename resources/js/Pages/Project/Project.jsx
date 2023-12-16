@@ -22,7 +22,6 @@ export default function Project({ auth, project, card, member, jobs }) {
             forceFormData : true,
         });
     }
-    // console.log(project.project_id)
 
     return (
         <AuthenticatedLayout
@@ -93,7 +92,34 @@ export default function Project({ auth, project, card, member, jobs }) {
                                 <h2 className="card-title">{card.title}</h2>
                                 {/* <p>{card.description}</p> */}
                                 <div className="card-actions justify-center">
-                                    <button className="btn btn-primary">View Detail</button>
+                                    {/* Open the modal using document.getElementById('ID').showModal() method */}
+                                    <button className="btn" onClick={()=>document.getElementById('modalDetailCard_'+card.card_id).showModal()}>open modal</button>
+
+                                    {/* DETAIL CARD */}
+                                    <dialog id={"modalDetailCard_" + card.card_id} className="modal">
+                                        <div className="modal-box">
+                                            <div className='flex gap-2 border-b-2 my-2 border-black'>
+                                                <h3 className="font-bold text-2xl ps-2">{card.title}</h3>
+                                                <span className='self-center text-2xl text-gray-400'>| {card.job.name_job}</span>
+                                            </div>
+                                            <div className='flex flex-col gap-2'>
+                                                <img src={'http://localhost:8000/storage/'+(!card.image ? 'cards/noImage.jpg': card.image)} alt={(!card.image ? 'tidak ada gambar' : card.image)}/>
+
+                                                <div className=''>
+                                                    <p className='text-2xl font-bold border-b-2'>Description</p>
+                                                    <p className="">{card.description}</p>
+                                                </div>
+
+                                            </div>
+                                            <div className="modal-action">
+                                                <form method="dialog">
+                                                    {/* if there is a button in form, it will close the modal */}
+                                                    <button className="btn">Close</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </dialog>
+                                    {/* END DETAIL CARD */}
                                 </div>
                             </div>
                         </div>

@@ -43,9 +43,9 @@ class CardController extends Controller
 
             ]);
 
-            return response()->json([
-                $request->all(),
-            ]);
+            // return response()->json([
+            //     $request->all(),
+            // ]);
         }catch(Exception $e){
             return $e->getMessage();
         }
