@@ -64,6 +64,8 @@ Route::prefix('project')->group(function(){
     Route::prefix('Card')->group(function() {
 
         Route::post('/store', [CardController::class, 'createCard'])->name('project.card.createCard');
+
+        Route::delete('/delete/{id}', [CardController::class, 'deleteCard'])->name('project.card.delete');
     });
 });
 

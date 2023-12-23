@@ -23,6 +23,22 @@ export default function Project({ auth, project, card, member, jobs }) {
         });
     }
 
+    const handleDeleteCard = (card) => {
+        // console.log(card)
+        // return;
+        axios.delete(route('project.card.delete',card.card_id))
+            .then(res => {
+                console.log(res.data)
+                window.location.reload();
+            })
+        // router.delete(route('project.card.delete',card.card_id),{
+        //     onSuccess : (res) => {
+        //         console.log(res);
+        //         console.log('done delete')
+        //     }
+        // })
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -90,39 +106,62 @@ export default function Project({ auth, project, card, member, jobs }) {
                 <div className='flex flex-wrap gap-2 '>
                     {cards.map((card, index) => (
                         <div className="card w-96 bg-base-100 shadow-xl" key={index}>
-                            <div className="card-body">
-                                <h2 className="card-title">{card.title}</h2>
-                                {/* <p>{card.description}</p> */}
-                                <div className="card-actions justify-center">
-                                    {/* Open the modal using document.getElementById('ID').showModal() method */}
-                                    <button className="btn" onClick={()=>document.getElementById('modalDetailCard_'+card.card_id).showModal()}>open modal</button>
+                                <div className="card-body relative">
 
-                                    {/* DETAIL CARD */}
-                                    <dialog id={"modalDetailCard_" + card.card_id} className="modal">
+                                    {/* DELETE CARD */}
+                                    {/* <button className='absolute top-3 right-5 bg-red-500 p-2 rounded-lg' onClick={() => handleDeleteCard(card)}>
+
+                                    </button> */}
+                                    <button className="absolute top-3 right-5 bg-red-500 p-2 rounded-lg" onClick={()=>document.getElementById('modalDeleteCard_'+ card.card_id).showModal()}>
+                                        <svg class="w-5 h-5 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                            <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+                                        </svg>
+                                    </button>
+                                    <dialog id={'modalDeleteCard_'+ card.card_id} className="modal">
                                         <div className="modal-box">
-                                            <div className='flex gap-2 border-b-2 my-2 border-black'>
-                                                <h3 className="font-bold text-2xl ps-2">{card.title}</h3>
-                                                <span className='self-center text-2xl text-gray-400'>| {card.job.name_job}</span>
-                                            </div>
-                                            <div className='flex flex-col gap-2'>
-                                                <img src={'http://localhost:8000/storage/'+(!card.image ? 'cards/noImage.jpg': card.image)} alt={(!card.image ? 'tidak ada gambar' : card.image)}/>
-
-                                                <div className=''>
-                                                    <p className='text-2xl font-bold border-b-2'>Description</p>
-                                                    <p className="">{card.description}</p>
-                                                </div>
-
-                                            </div>
+                                            <h3 className="font-bold text-lg">Yakin Menghapus Card "{card.title}"</h3>
                                             <div className="modal-action">
                                                 <form method="dialog">
-                                                    {/* if there is a button in form, it will close the modal */}
-                                                    <button className="btn">Close</button>
+                                                    <button className="btn btn-success text-white">Close</button>
                                                 </form>
+                                                <button className='btn btn-error text-white' onClick={() => handleDeleteCard(card)}>Delete</button>
                                             </div>
                                         </div>
                                     </dialog>
-                                    {/* END DETAIL CARD */}
-                                </div>
+                                    {/* END DELETE CARD */}
+
+                                    <h2 className="card-title">{card.title}</h2>
+                                    {/* <p>{card.description}</p> */}
+                                    <div className="card-actions justify-center">
+                                        {/* Open the modal using document.getElementById('ID').showModal() method */}
+                                        <button className="btn mt-3" onClick={()=>document.getElementById('modalDetailCard_'+card.card_id).showModal()}>open modal</button>
+
+                                        {/* DETAIL CARD */}
+                                        <dialog id={"modalDetailCard_" + card.card_id} className="modal">
+                                            <div className="modal-box">
+                                                <div className='flex gap-2 border-b-2 my-2 border-black'>
+                                                    <h3 className="font-bold text-2xl ps-2">{card.title}</h3>
+                                                    <span className='self-center text-2xl text-gray-400'>| {card.job.name_job}</span>
+                                                </div>
+                                                <div className='flex flex-col gap-2'>
+                                                    <img src={'http://localhost:8000/storage/'+(!card.image ? 'cards/noImage.jpg': card.image)} alt={(!card.image ? 'tidak ada gambar' : card.image)}/>
+
+                                                    <div className=''>
+                                                        <p className='text-2xl font-bold border-b-2'>Description</p>
+                                                        <p className="">{card.description}</p>
+                                                    </div>
+
+                                                </div>
+                                                <div className="modal-action">
+                                                    <form method="dialog">
+                                                        {/* if there is a button in form, it will close the modal */}
+                                                        <button className="btn">Close</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </dialog>
+                                        {/* END DETAIL CARD */}
+                                    </div>
                             </div>
                         </div>
                     ))}

@@ -51,4 +51,9 @@ class CardController extends Controller
         }
     }
 
+    public function deleteCard(string $id)
+    {
+        Card::find($id)->delete();
+    }
+
 }

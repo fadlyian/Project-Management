@@ -36,6 +36,11 @@ class Card extends Model
         'image',
     ];
 
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id', 'project_id');
+    }
+
     public function job()
     {
         return $this->belongsTo(Job::class, 'job_id', 'job_id');
