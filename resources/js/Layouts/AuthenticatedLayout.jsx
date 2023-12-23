@@ -3,8 +3,6 @@ import Navbar from '@/Components/Navbar';
 import { router, useForm } from '@inertiajs/react';
 
 export default function Authenticated({ user, header, children, member=null, project=null, jobs=null }) {
-    // console.log(user);
-    // console.log(member)
 
     const {data, setData, processing, errors} = useForm({
         email : null,
@@ -18,15 +16,12 @@ export default function Authenticated({ user, header, children, member=null, pro
             email : data.email,
             job : data.job,
         }).then((res) => {
-            console.log("response data : ")
-            console.log(res.data)
             alert(res.data)
         })
     }
 
     const handleDeleteMember = (member) => {
-        // console.log(member)
-        console.log('apakah ingin menghapus ' + member.name + ' dari project ' + project.name_project)
+
         alert('apakah ingin menghapus ' + member.name + ' dari project ' + project.name_project)
 
         axios.post(route('project.member.delete'),{
@@ -40,8 +35,6 @@ export default function Authenticated({ user, header, children, member=null, pro
             console.log(error)
         })
     }
-
-    console.log(member)
 
     return (
         <div className='flex flex-col'>

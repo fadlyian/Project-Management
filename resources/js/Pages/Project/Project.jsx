@@ -17,26 +17,18 @@ export default function Project({ auth, project, card, member, jobs }) {
 
     const handleCreateCard = (e) => {
         // e.preventDefault();
-        console.log(data);
         router.post(route('project.card.createCard'),data,{
             forceFormData : true,
         });
+        window.location.reload();
     }
 
     const handleDeleteCard = (card) => {
-        // console.log(card)
-        // return;
         axios.delete(route('project.card.delete',card.card_id))
             .then(res => {
                 console.log(res.data)
                 window.location.reload();
             })
-        // router.delete(route('project.card.delete',card.card_id),{
-        //     onSuccess : (res) => {
-        //         console.log(res);
-        //         console.log('done delete')
-        //     }
-        // })
     }
 
     return (
@@ -49,7 +41,7 @@ export default function Project({ auth, project, card, member, jobs }) {
         >
             <Head title={`Project `+detailProject.name_project} />
 
-            <div className='p-3 flex flex-col gap-2 bg-red-300'>
+            <div className='p-3 flex flex-col gap-2 bg-red-300 overflow-hidden'>
                 {/*  */}
                 <button className="btn w-36" onClick={()=>document.getElementById('my_modal_card').showModal()}>Add Card</button>
                 <dialog id="my_modal_card" className="modal">
@@ -73,7 +65,7 @@ export default function Project({ auth, project, card, member, jobs }) {
                             <div className='flex flex-col justify-around w-full gap-1'>
                                 <label id='job' className='font-bold'>Job Access</label>
                                 <select className="select select-bordered w-full max-w-xs" onChange={e => setData('job', e.target.value)}>
-                                    <option disabled selected>Who shot first?</option>
+                                    <option disabled selected>Who Can Access?</option>
                                     {jobs.map((job,index) => (
                                         <option key={index} value={job.job_id}>{job.name_job}</option>
                                     ))}
@@ -112,7 +104,7 @@ export default function Project({ auth, project, card, member, jobs }) {
                                     {/* <button className='absolute top-3 right-5 bg-red-500 p-2 rounded-lg' onClick={() => handleDeleteCard(card)}>
 
                                     </button> */}
-                                    <button className="absolute top-3 right-5 bg-red-500 p-2 rounded-lg" onClick={()=>document.getElementById('modalDeleteCard_'+ card.card_id).showModal()}>
+                                    <button className="absolute top-3 right-5 bg-red-500 hover:bg-red-600 p-2 rounded-lg" onClick={()=>document.getElementById('modalDeleteCard_'+ card.card_id).showModal()}>
                                         <svg class="w-5 h-5 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                             <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                                         </svg>
