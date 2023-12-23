@@ -98,4 +98,13 @@ class ProjectController extends Controller
             return response()->json($e->getMessage());
         }
     }
+
+    public function deleteMember(Request $request)
+    {
+        $project = Project::findOrFail($request->project);
+        $project = $project->users()->detach($request->member['id']);
+
+        return response()->json('berhasil menghapus '. $request->member['name']);
+
+    }
 }

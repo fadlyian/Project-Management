@@ -57,6 +57,8 @@ Route::prefix('project')->group(function(){
     Route::prefix('member')->group(function(){
         Route::post('/addMember', [ProjectController::class, 'addMember'])->name('project.member.addMember');
 
+        Route::post('/deleteMember', [ProjectController::class, 'deleteMember'])->name('project.member.delete');
+
     });
 
     Route::prefix('Card')->group(function() {
