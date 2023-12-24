@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 
 class CardController extends Controller
@@ -37,10 +38,12 @@ class CardController extends Controller
             $card = Card::create([
                 'project_id' => $request->project_id,
                 'job_id' => $request->job,
-                'title' => $request->title,
-                'description' => $request->description,
-                'image' => $imagePath,
-
+                // 'title' => $request->title,
+                // 'description' => $request->description,
+                // 'image' => $imagePath,
+                'title' => Crypt::encryptString($request->title),
+                'description' => Crypt::encryptString($request->description),
+                'image' => Crypt::encryptString($imagePath),
             ]);
 
             // return response()->json([
@@ -54,6 +57,22 @@ class CardController extends Controller
     public function deleteCard(string $id)
     {
         Card::find($id)->delete();
+    }
+
+    public function decrypt(Request $request)
+    {
+        if(!$request->image){
+            $image = null;
+        }else{
+            $image = Crypt::decryptString($request->image);
+        }
+
+        $description = Crypt::decryptString($request->description);
+
+        return response()->json([
+            'description' => $description,
+            'image' => $image,
+        ]);
     }
 
 }

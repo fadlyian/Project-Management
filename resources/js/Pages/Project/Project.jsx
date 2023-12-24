@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, useForm } from '@inertiajs/react';
+import axios from 'axios';
 import { useState } from 'react';
 
 export default function Project({ auth, project, card, member, jobs }) {
@@ -28,6 +29,18 @@ export default function Project({ auth, project, card, member, jobs }) {
             .then(res => {
                 console.log(res.data)
                 window.location.reload();
+            })
+    }
+
+    const [description, setDescription] = useState(null);
+    const [image, setImage] = useState(null);
+
+    const decrypt = async (description, image) => {
+
+        await axios.post(route('project.card.decrypt',{description, image}))
+            .then(res => {
+                setDescription(res.data.description);
+                setImage(res.data.image);
             })
     }
 
@@ -125,8 +138,10 @@ export default function Project({ auth, project, card, member, jobs }) {
                                     <h2 className="card-title">{card.title}</h2>
                                     {/* <p>{card.description}</p> */}
                                     <div className="card-actions justify-center">
-                                        {/* Open the modal using document.getElementById('ID').showModal() method */}
-                                        <button className="btn mt-3" onClick={()=>document.getElementById('modalDetailCard_'+card.card_id).showModal()}>open modal</button>
+                                        <button className="btn mt-3" onClick={()=>{
+                                            document.getElementById('modalDetailCard_'+card.card_id).showModal()
+                                            decrypt(card.description, card.image)
+                                        }}>open modal</button>
 
                                         {/* DETAIL CARD */}
                                         <dialog id={"modalDetailCard_" + card.card_id} className="modal">
@@ -136,11 +151,11 @@ export default function Project({ auth, project, card, member, jobs }) {
                                                     <span className='self-center text-2xl text-gray-400'>| {card.job.name_job}</span>
                                                 </div>
                                                 <div className='flex flex-col gap-2'>
-                                                    <img src={'http://localhost:8000/storage/'+(!card.image ? 'cards/noImage.jpg': card.image)} alt={(!card.image ? 'tidak ada gambar' : card.image)}/>
+                                                    <img src={'http://localhost:8000/storage/'+(!image ? 'cards/noImage.jpg': image)} alt={(!card.image ? 'tidak ada gambar' : card.image)}/>
 
                                                     <div className=''>
                                                         <p className='text-2xl font-bold border-b-2'>Description</p>
-                                                        <p className="">{card.description}</p>
+                                                        <p className="">{description}</p>
                                                     </div>
 
                                                 </div>

@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -25,12 +26,16 @@ class ProjectController extends Controller
     {
         // return Project::findOrFail($id);
         $project = Project::findOrFail($id);
-        // return $project->cards()->get();
-        // return response()->json($p);
 
-        return Inertia::render('Project/Project',[
+        $cards = $project->cards()->with('job')->get();
+
+        $cards->each(function ($card) {
+            $card->title = Crypt::decryptString($card->title);
+        });
+
+        return Inertia::render('Project/Project', [
             'project' => $project,
-            'card' => $project->cards()->with('job')->get(),
+            'card' => $cards,
             'member' => $project->users()->get(),
             'jobs' => Job::all()->except([1]),
         ]);
