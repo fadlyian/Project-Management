@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/testing', [TestingController::class, 'index']);
 
-Route::prefix('project')->group(function(){
+Route::prefix('project')->group(function () {
 
     Route::get('/testing', [ProjectController::class, 'testing'])->name('project.testing');
 
@@ -54,10 +54,10 @@ Route::prefix('project')->group(function(){
 
     Route::delete('/delete/{id}', [ProjectController::class, 'deleteProject'])->name('project.deleteProject');
 
-    Route::prefix('Card')->group(function() {
+    Route::prefix('Card')->group(function () {
 
         Route::post('/store', [CardController::class, 'createCard'])->name('project.card.createCard');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
