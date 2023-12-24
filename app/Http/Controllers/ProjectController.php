@@ -24,7 +24,8 @@ class ProjectController extends Controller
 
     public function detailProject(string $id)
     {
-        // return Project::findOrFail($id);
+        $userJob = Auth::user()->jobsInProjects()->get()->where('pivot.project_id', $id)->first();
+
         $project = Project::findOrFail($id);
 
         $cards = $project->cards()->with('job')->get();
@@ -34,6 +35,7 @@ class ProjectController extends Controller
         });
 
         return Inertia::render('Project/Project', [
+            'userJob' => $userJob,
             'project' => $project,
             'card' => $cards,
             'member' => $project->users()->get(),

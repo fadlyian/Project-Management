@@ -3,7 +3,7 @@ import { Head, router, useForm } from '@inertiajs/react';
 import axios from 'axios';
 import { useState } from 'react';
 
-export default function Project({ auth, project, card, member, jobs }) {
+export default function Project({ auth, userJob, project, card, member, jobs }) {
 
     const [detailProject, setDetailProject] = useState(project);
     const [cards, setCard] = useState(card);
@@ -15,6 +15,9 @@ export default function Project({ auth, project, card, member, jobs }) {
         job : null,
         image : null,
     })
+
+    // console.log("user job : ", userJob)
+    // console.log("card : ", card)
 
     const handleCreateCard = (e) => {
         // e.preventDefault();
@@ -35,13 +38,21 @@ export default function Project({ auth, project, card, member, jobs }) {
     const [description, setDescription] = useState(null);
     const [image, setImage] = useState(null);
 
-    const decrypt = async (description, image) => {
+    const decrypt = (description, image, job) => {
+        console.log('job dari card : ',job)
+        console.log("Job_ID dari user : ",userJob.job_id)
+        // return;
 
-        await axios.post(route('project.card.decrypt',{description, image}))
+        if(job == userJob.job_id || userJob.job_id == 1){
+            axios.post(route('project.card.decrypt',{description, image}))
             .then(res => {
                 setDescription(res.data.description);
                 setImage(res.data.image);
             })
+        }else{
+            setDescription('description masih Encrypt : '+ description)
+            setImage('Image masih Encrypt : '+ image)
+        }
     }
 
     return (
@@ -140,7 +151,7 @@ export default function Project({ auth, project, card, member, jobs }) {
                                     <div className="card-actions justify-center">
                                         <button className="btn mt-3" onClick={()=>{
                                             document.getElementById('modalDetailCard_'+card.card_id).showModal()
-                                            decrypt(card.description, card.image)
+                                            decrypt(card.description, card.image, card.job_id)
                                         }}>open modal</button>
 
                                         {/* DETAIL CARD */}
