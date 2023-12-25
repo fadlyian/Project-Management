@@ -54,28 +54,28 @@ export default function Project({ auth, project, card, member, jobs }) {
         >
             <Head title={`Project `+detailProject.name_project} />
 
-            <div className='p-3 flex flex-col gap-2 bg-red-300 overflow-hidden'>
+            <div className='p-3 flex flex-col gap-2 bg-orange-50 h-full'>
                 {/*  */}
-                <button className="btn w-36" onClick={()=>document.getElementById('my_modal_card').showModal()}>Add Card</button>
+                <button className="btn w-36 bg-gray-400 text-white" onClick={()=>document.getElementById('my_modal_card').showModal()}>Add Card</button>
                 <dialog id="my_modal_card" className="modal">
-                    <div className="modal-box">
-                        <h3 className="font-bold text-2xl text-center mb-4 border-b-2 border-green-400">Tambah Card Baru!</h3>
+                    <div className="modal-box bg-gray-400">
+                        <h3 className="font-bold text-2xl text-center text-white mb-4">Tambah Card Baru!</h3>
                         {/* <p className="py-4">Press ESC key or click outside to close</p> */}
                         <form onSubmit={handleCreateCard} className='flex flex-col gap-4'>
 
-                            <div className='flex flex-col justify-around w-full gap-1'>
+                            <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='title' className='font-bold'>Title</label>
                                 <input type="text" placeholder="Type title here" className="input input-bordered w-full max-w-xs" onChange={e => setData('title',e.target.value)}/>
                                 {errors.title && <div>{errors.title}</div>}
                             </div>
 
-                            <div className='flex flex-col justify-around w-full gap-1'>
+                            <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='description' className='font-bold'>Description</label>
                                 <textarea placeholder="Bio" className="textarea textarea-bordered w-full" onChange={e => setData('description', e.target.value)}></textarea>
                                 {errors.description && <div>{errors.description}</div>}
                             </div>
 
-                            <div className='flex flex-col justify-around w-full gap-1'>
+                            <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='job' className='font-bold'>Job Access</label>
                                 <select className="select select-bordered w-full max-w-xs" onChange={e => setData('job', e.target.value)}>
                                     <option disabled selected>Who Can Access?</option>
@@ -87,7 +87,7 @@ export default function Project({ auth, project, card, member, jobs }) {
                                 {errors.job && <div>{errors.job}</div>}
                             </div>
 
-                            <div className='flex flex-col justify-around w-full gap-1'>
+                            <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='image' className='font-bold'>image</label>
                                 <input type="file" accept=".png, .jpg, .jpeg" className="file-input file-input-bordered w-full max-w-xs" onChange={e => setData('image', e.target.files[0])}/>
                                 {progress && (
@@ -99,7 +99,7 @@ export default function Project({ auth, project, card, member, jobs }) {
                                 {errors.image && <div>{errors.image}</div>}
                             </div>
 
-                            <button type="submit" disabled={processing} className='btn btn-outline btn-success'>Add Card</button>
+                            <button type="submit" disabled={processing} className='btn'>Add Card</button>
                         </form>
                     </div>
                     <form method="dialog" className="modal-backdrop">
@@ -110,7 +110,7 @@ export default function Project({ auth, project, card, member, jobs }) {
                 {/* Card */}
                 <div className='flex flex-wrap gap-2 '>
                     {cards.map((card, index) => (
-                        <div className="card w-96 bg-base-100 shadow-xl" key={index}>
+                        <div className="card w-96 bg-gray-300 shadow-xl" key={index}>
                                 <div className="card-body relative">
 
                                     {/* DELETE CARD */}
