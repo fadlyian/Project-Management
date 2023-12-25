@@ -76,19 +76,19 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
 
                             <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='title' className='font-bold'>Title</label>
-                                <input type="text" placeholder="Type title here" className="input input-bordered w-full max-w-xs" onChange={e => setData('title',e.target.value)}/>
+                                <input type="text" placeholder="Type title here" className="input input-bordered w-full max-w-xs text-black" onChange={e => setData('title',e.target.value)}/>
                                 {errors.title && <div>{errors.title}</div>}
                             </div>
 
                             <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='description' className='font-bold'>Description</label>
-                                <textarea placeholder="Bio" className="textarea textarea-bordered w-full" onChange={e => setData('description', e.target.value)}></textarea>
+                                <textarea placeholder="Bio" className="textarea textarea-bordered w-full text-black" onChange={e => setData('description', e.target.value)}></textarea>
                                 {errors.description && <div>{errors.description}</div>}
                             </div>
 
                             <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='job' className='font-bold'>Job Access</label>
-                                <select className="select select-bordered w-full max-w-xs" onChange={e => setData('job', e.target.value)}>
+                                <select className="select select-bordered w-full max-w-xs text-black" onChange={e => setData('job', e.target.value)}>
                                     <option disabled selected>Who Can Access?</option>
                                     {jobs.map((job,index) => (
                                         <option key={index} value={job.job_id}>{job.name_job}</option>
@@ -100,7 +100,7 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
 
                             <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='image' className='font-bold'>image</label>
-                                <input type="file" accept=".png, .jpg, .jpeg" className="file-input file-input-bordered w-full max-w-xs" onChange={e => setData('image', e.target.files[0])}/>
+                                <input type="file" accept=".png, .jpg, .jpeg" className="file-input file-input-bordered w-full max-w-xs text-black" onChange={e => setData('image', e.target.files[0])}/>
                                 {progress && (
                                     <progress value={progress.percentage} max="100">
                                         {progress.percentage}%
