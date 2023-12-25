@@ -5,6 +5,8 @@ import { useState } from 'react';
 
 export default function Project({ auth, userJob, project, card, member, jobs }) {
 
+    const admin = (userJob.name_job == 'admin'? true :false)
+
     const [detailProject, setDetailProject] = useState(project);
     const [cards, setCard] = useState(card);
 
@@ -15,9 +17,6 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
         job : null,
         image : null,
     })
-
-    // console.log("user job : ", userJob)
-    // console.log("card : ", card)
 
     const handleCreateCard = (e) => {
         // e.preventDefault();
@@ -58,6 +57,7 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
     return (
         <AuthenticatedLayout
             user={auth.user}
+            admin={admin}
             header={detailProject.name_project}
             member={member}
             project={project}
@@ -128,22 +128,27 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
                                     {/* <button className='absolute top-3 right-5 bg-red-500 p-2 rounded-lg' onClick={() => handleDeleteCard(card)}>
 
                                     </button> */}
-                                    <button className="absolute top-3 right-5 bg-red-500 hover:bg-red-600 p-2 rounded-lg" onClick={()=>document.getElementById('modalDeleteCard_'+ card.card_id).showModal()}>
-                                        <svg class="w-5 h-5 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                            <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
-                                        </svg>
-                                    </button>
-                                    <dialog id={'modalDeleteCard_'+ card.card_id} className="modal">
-                                        <div className="modal-box">
-                                            <h3 className="font-bold text-lg">Yakin Menghapus Card "{card.title}"</h3>
-                                            <div className="modal-action">
-                                                <form method="dialog">
-                                                    <button className="btn btn-success text-white">Close</button>
-                                                </form>
-                                                <button className='btn btn-error text-white' onClick={() => handleDeleteCard(card)}>Delete</button>
+                                    {admin && (
+                                        <>
+                                        <button className="absolute top-3 right-5 bg-red-500 hover:bg-red-600 p-2 rounded-lg" onClick={()=>document.getElementById('modalDeleteCard_'+ card.card_id).showModal()}>
+                                            <svg class="w-5 h-5 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+                                            </svg>
+                                        </button>
+                                        <dialog id={'modalDeleteCard_'+ card.card_id} className="modal">
+                                            <div className="modal-box">
+                                                <h3 className="font-bold text-lg">Yakin Menghapus Card "{card.title}"</h3>
+                                                <div className="modal-action">
+                                                    <form method="dialog">
+                                                        <button className="btn btn-success text-white">Close</button>
+                                                    </form>
+                                                    <button className='btn btn-error text-white' onClick={() => handleDeleteCard(card)}>Delete</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </dialog>
+                                        </dialog>
+                                        </>
+                                    )}
+
                                     {/* END DELETE CARD */}
 
                                     <h2 className="card-title">{card.title}</h2>

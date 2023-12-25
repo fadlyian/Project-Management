@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 
-export default function SideBar({user})
+export default function SideBar({auth})
 {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
@@ -42,9 +42,13 @@ export default function SideBar({user})
                 // console.log(res.data.projects)
                 setProjects(res.data.projects)
             })
-    }, [projects])
+    }, [])
     // END LIST PROJECTS==========================
-  return (
+
+    console.log("sidebar tentang projects  : ",projects)
+
+
+    return (
     <Sidebar className="hidden md:block bg-zinc-400 h-screen max-h-full">
         {/* Button Add Project */}
         <div>
@@ -76,7 +80,7 @@ export default function SideBar({user})
                     Dashboard
                 </MenuItem>
             </Link>
-            <SubMenu defaultOpen label="Projects" >
+            <SubMenu defaultOpen label="Projects">
                 {/* {!projects && (
                     <MenuItem >belum ada project</MenuItem>
                 )} */}
@@ -85,14 +89,17 @@ export default function SideBar({user})
                         <div className="flex justify-between pe-4 bg-zinc-200 ">
                             <Link href={route("project.detail", project.project_id)} className="flex-1 bg-zinc-200">
                                 <MenuItem key={index}>
-                                    {project.name_project}
+                                    {project.name_project} {project.pivot.job_id}
                                 </MenuItem>
                             </Link>
+                            {project.pivot.job_id == 1 && (
                             <button className="bg-red-500 hover:bg-red-600 rounded-lg p-2 m-auto self-end" onClick={() => handleDelete(project.project_id)}>
                                 <svg class="w-5 h-5 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                     <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                                 </svg>
                             </button>
+                            )}
+
                         </div>
                     )
                 })}

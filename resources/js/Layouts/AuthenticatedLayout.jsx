@@ -2,12 +2,14 @@ import SideBar from '@/Components/SideBar';
 import Navbar from '@/Components/Navbar';
 import { router, useForm } from '@inertiajs/react';
 
-export default function Authenticated({ user, header, children, member=null, project=null, jobs=null }) {
+export default function Authenticated({ user, admin, header, children, member=null, project=null, jobs=null }) {
 
     const {data, setData, processing, errors} = useForm({
         email : null,
         job : null,
     })
+
+    console.log("ini apakah admin : ", admin)
 
     const handleAddMember = (e) => {
         // e.preventDefault()
@@ -42,7 +44,9 @@ export default function Authenticated({ user, header, children, member=null, pro
             <Navbar user={user}></Navbar>
 
             <div className='flex flex-row'>
-                <SideBar user={user}></SideBar>
+                <SideBar
+                    user={user}
+                ></SideBar>
 
                 <div className='flex flex-col flex-1 '>
                     {/* HEADER */}
@@ -119,16 +123,18 @@ export default function Authenticated({ user, header, children, member=null, pro
                                             {/* head */}
                                             <thead>
                                                 <tr>
-                                                    <th></th>
+                                                    <th className='text-center'>No</th>
                                                     <th>Name</th>
-                                                    <th>Job</th>
-                                                    <th>Action</th>
+                                                    <th className='text-center'>Job</th>
+                                                    {admin && (
+                                                    <th >Action</th>
+                                                    )}
                                                 </tr>
                                             </thead>
                                             <tbody>
                                     {member.filter((member) => !(member.pivot.job_id == 1)).map((member, index) => (
                                                 <tr key={index}>
-                                                    <th>{index+1}</th>
+                                                    <th className='text-center'>{index+1}</th>
                                                     <td>{member.name}</td>
                                                     <td>
                                                         <select className="select select-bordered w-full max-w-xs" value={member.pivot.job_id}>
@@ -138,6 +144,7 @@ export default function Authenticated({ user, header, children, member=null, pro
                                                             ))}
                                                         </select>
                                                     </td>
+                                                    {admin && (
                                                     <td>
                                                         <button className='btn btn-error' onClick={() => handleDeleteMember(member)}>
                                                         <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -145,6 +152,8 @@ export default function Authenticated({ user, header, children, member=null, pro
                                                         </svg>
                                                         </button>
                                                     </td>
+                                                    )}
+
                                                 </tr>
                                     ))}
                                             </tbody>
