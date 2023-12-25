@@ -20,7 +20,7 @@ export default function Navbar({user})
         },
     ]
   return (
-    <div className="navbar bg-blue-600 border-b-2 border-blue-600">
+    <div className="navbar bg-indigo-950 border-b-2 border-indigo-950">
         <div className="flex lg:flex-none items-center">
             <div className="drawer md:hidden">
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />

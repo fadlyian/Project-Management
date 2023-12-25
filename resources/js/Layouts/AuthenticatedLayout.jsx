@@ -46,7 +46,7 @@ export default function Authenticated({ user, header, children, member=null, pro
 
                 <div className='flex flex-col flex-1 '>
                     {/* HEADER */}
-                    <div className='flex flex-row justify-between p-2'>
+                    <div className='flex flex-row justify-between p-2 bg-gray-200'>
                         <p className='font-bold my-auto text-2xl'>{header}</p>
 
                         {member && (
@@ -54,22 +54,21 @@ export default function Authenticated({ user, header, children, member=null, pro
                                 {/* Add User */}
                                 <button className="bg-gray-400 hover:bg-gray-500 text-white rounded-2xl px-3" onClick={()=>document.getElementById('modalAddMember_'+project.project_id).showModal()}>add Member +</button>
                                 <dialog id={'modalAddMember_'+project.project_id } className="modal">
-                                <div className="modal-box">
+                                <div className="modal-box bg-indigo-950">
 
                                     <form method="dialog">
                                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                     </form>
-
-                                    <h3 className="font-bold text-2xl border-b-2 mb-4 border-yellow-300">Tambah Member</h3>
+                                    <h3 className="font-bold text-2xl mb-4 text-white">Tambah Member</h3>
                                     <form onSubmit={handleAddMember} className='flex flex-col gap-3'>
                                         <div className='flex flex-col justify-around w-full gap-1'>
-                                            <label id='email' className='font-bold'>Email</label>
+                                            <label id='email' className='font-bold text-white'>Email</label>
                                             <input type="text" placeholder="Type email here" className="input input-bordered w-full max-w-xs" onChange={e => setData('email',e.target.value)}/>
                                             {errors.email && <div>{errors.email}</div>}
                                         </div>
 
                                         <div className='flex flex-col justify-around w-full gap-1'>
-                                            <label id='job' className='font-bold'>Job Access</label>
+                                            <label id='job' className='font-bold text-white'>Job Access</label>
                                             <select className="select select-bordered w-full max-w-xs" onChange={e => setData('job', e.target.value)}>
                                                 <option disabled selected>Who shot first?</option>
                                                 {jobs.map((job,index) => (
@@ -80,7 +79,7 @@ export default function Authenticated({ user, header, children, member=null, pro
                                             {errors.job && <div>{errors.job}</div>}
                                         </div>
 
-                                        <button type="submit" disabled={processing} className='btn btn-outline btn-success'>Add Member</button>
+                                        <button type="submit" disabled={processing} className='btn '>Add Member</button>
                                     </form>
                                 </div>
                                 </dialog>
