@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use App\Models\Job;
 use App\Models\Project;
 use App\Models\User;
@@ -71,6 +72,7 @@ class ProjectController extends Controller
         try {
             $project = Project::findOrFail($id);
             $project->users()->detach();
+            Card::where('project_id', $project->project_id)->delete();
             $project->delete();
 
             // $project->jobsInUsers()->detach();
