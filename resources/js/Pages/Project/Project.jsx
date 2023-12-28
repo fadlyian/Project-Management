@@ -66,8 +66,10 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
             <Head title={`Project `+detailProject.name_project} />
 
             <div className='p-3 flex flex-col gap-2 bg-orange-50 h-full'>
-                {/*  */}
+                {/* button create card */}
+                {userJob.job_id == 1 && (
                 <button className="btn w-36 bg-gray-400 text-white" onClick={()=>document.getElementById('my_modal_card').showModal()}>Add Card</button>
+                )}
                 <dialog id="my_modal_card" className="modal">
                     <div className="modal-box bg-gray-400">
                         <h3 className="font-bold text-2xl text-center text-white mb-4">Tambah Card Baru!</h3>
@@ -76,24 +78,23 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
 
                             <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='title' className='font-bold'>Title</label>
-                                <input type="text" placeholder="Type title here" className="input input-bordered w-full max-w-xs text-black" onChange={e => setData('title',e.target.value)}/>
+                                <input type="text" placeholder="Type title here" className="input input-bordered w-full max-w-xs text-black" onChange={e => setData('title',e.target.value)} required/>
                                 {errors.title && <div>{errors.title}</div>}
                             </div>
 
                             <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='description' className='font-bold'>Description</label>
-                                <textarea placeholder="Bio" className="textarea textarea-bordered w-full text-black" onChange={e => setData('description', e.target.value)}></textarea>
+                                <textarea placeholder="Bio" className="textarea textarea-bordered w-full text-black" onChange={e => setData('description', e.target.value)} required></textarea>
                                 {errors.description && <div>{errors.description}</div>}
                             </div>
 
                             <div className='flex flex-col justify-around w-full gap-1 text-white'>
                                 <label id='job' className='font-bold'>Job Access</label>
-                                <select className="select select-bordered w-full max-w-xs text-black" onChange={e => setData('job', e.target.value)}>
+                                <select className="select select-bordered w-full max-w-xs text-black" onChange={e => setData('job', e.target.value)} required>
                                     <option disabled selected>Who Can Access?</option>
                                     {jobs.map((job,index) => (
                                         <option key={index} value={job.job_id}>{job.name_job}</option>
                                     ))}
-                                    {/* <option value={'Greedo'}>Greedo</option> */}
                                 </select>
                                 {errors.job && <div>{errors.job}</div>}
                             </div>
