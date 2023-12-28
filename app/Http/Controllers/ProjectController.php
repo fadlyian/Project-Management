@@ -116,4 +116,20 @@ class ProjectController extends Controller
         return response()->json('berhasil menghapus '. $request->member['name']);
 
     }
+
+    public function changeJob(Request $request)
+    {
+        try {
+            // return $request->all();
+
+            $project = Project::find($request->project);
+            // return $project->users()->get()->where('id', $request->user);
+            $result = $project->users()->updateExistingPivot($request->user, ['job_id' => $request->job]);
+
+            return $result;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
 }

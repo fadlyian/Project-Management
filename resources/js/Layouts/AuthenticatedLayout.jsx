@@ -1,6 +1,7 @@
 import SideBar from '@/Components/SideBar';
 import Navbar from '@/Components/Navbar';
 import { router, useForm } from '@inertiajs/react';
+import axios from 'axios';
 
 export default function Authenticated({ user, admin, header, children, member=null, project=null, jobs=null }) {
 
@@ -9,7 +10,6 @@ export default function Authenticated({ user, admin, header, children, member=nu
         job : null,
     })
 
-    console.log("ini apakah admin : ", admin)
 
     const handleAddMember = (e) => {
         // e.preventDefault()
@@ -32,6 +32,19 @@ export default function Authenticated({ user, admin, header, children, member=nu
         })
         .then(res => {
             console.log(res);
+            window.location.reload();
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    const changeJobMember = (event, member) => {
+
+        axios.post(route('project.member.changeJob'),{
+            project : project.project_id,
+            user : member.id,
+            job : event.target.value, // didapat ketika diklick di Tag <Select>
+        }).then(res => {
             window.location.reload();
         }).catch(error => {
             console.log(error)
@@ -74,7 +87,7 @@ export default function Authenticated({ user, admin, header, children, member=nu
                                         <div className='flex flex-col justify-around w-full gap-1'>
                                             <label id='job' className='font-bold text-white'>Job Access</label>
                                             <select className="select select-bordered w-full max-w-xs" onChange={e => setData('job', e.target.value)}>
-                                                <option disabled selected>Who shot first?</option>
+                                                <option disabled selected>Job Access?</option>
                                                 {jobs.map((job,index) => (
                                                     <option key={index} value={job.job_id}>{job.name_job}</option>
                                                 ))}
@@ -137,7 +150,12 @@ export default function Authenticated({ user, admin, header, children, member=nu
                                                     <th className='text-center'>{index+1}</th>
                                                     <td>{member.name}</td>
                                                     <td>
-                                                        <select className="select select-bordered w-full max-w-xs" value={member.pivot.job_id}>
+                                                        <select
+                                                            className="select select-bordered w-full max-w-xs"
+                                                            value={member.pivot.job_id}
+                                                            disabled={!admin ? true : false}
+                                                            onChange={(event) => changeJobMember(event, member) }
+                                                        >
                                                             {/* <option selected>{}</option> */}
                                                             {jobs.map((job, index) => (
                                                                 <option key={index} value={job.job_id}>{job.name_job}</option>

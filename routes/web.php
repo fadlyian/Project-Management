@@ -4,8 +4,6 @@ use App\Http\Controllers\CardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TestingController;
-use App\Models\Project;
-use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -58,6 +56,8 @@ Route::prefix('project')->group(function(){
         Route::post('/addMember', [ProjectController::class, 'addMember'])->name('project.member.addMember');
 
         Route::post('/deleteMember', [ProjectController::class, 'deleteMember'])->name('project.member.delete');
+
+        Route::post('/changeJobMember', [ProjectController::class, 'changeJob'])->name('project.member.changeJob');
 
     });
 
