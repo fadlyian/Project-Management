@@ -34,7 +34,7 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" className='text-gray-100' />
+                    <InputLabel htmlFor="email" value="Email" className='text-white' />
 
                     <TextInput
                         id="email"
@@ -52,7 +52,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" className='text-gray-100'/>
+                    <InputLabel htmlFor="password" value="Password" className='text-white'/>
 
                     <TextInput
                         id="password"
@@ -89,8 +89,8 @@ export default function Login({ status, canResetPassword }) {
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4 bg-orange-50 text-black font-bold" disabled={processing}>
-                        Login
+                    <PrimaryButton className="ms-4 bg-orange-50" disabled={processing}>
+                        <p className='text-black'>Login</p>
                     </PrimaryButton>
                 </div>
             </form>
