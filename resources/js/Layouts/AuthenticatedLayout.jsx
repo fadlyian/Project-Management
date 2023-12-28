@@ -23,15 +23,11 @@ export default function Authenticated({ user, admin, header, children, member=nu
     }
 
     const handleDeleteMember = (member) => {
-
-        alert('apakah ingin menghapus ' + member.name + ' dari project ' + project.name_project)
-
         axios.post(route('project.member.delete'),{
             project : project.project_id,
             member : member
         })
         .then(res => {
-            console.log(res);
             window.location.reload();
         }).catch(error => {
             console.log(error)
@@ -164,11 +160,24 @@ export default function Authenticated({ user, admin, header, children, member=nu
                                                     </td>
                                                     {admin && (
                                                     <td>
-                                                        <button className='btn btn-error' onClick={() => handleDeleteMember(member)}>
-                                                        <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                                            <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
-                                                        </svg>
+                                                        <button className='btn btn-error' onClick={() => document.getElementById('modalDeleteMember_'+ member).showModal() } >
+                                                            <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                                                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+                                                            </svg>
                                                         </button>
+
+                                                        <dialog id={'modalDeleteMember_'+ member} className="modal">
+                                                            <div className="modal-box">
+                                                                <h3 className="font-bold text-lg">Yakin Menghapus Member "{member.name}"</h3>
+                                                                <div className="modal-action">
+                                                                    <form method="dialog">
+                                                                        <button className="btn btn-success text-white">Close</button>
+                                                                    </form>
+                                                                    {/* <button className='btn btn-error text-white' onClick={() => handleDeleteCard(card)}>Delete</button> */}
+                                                                    <button className='btn btn-error text-white' onClick={() => handleDeleteMember(member)}>Delete</button>
+                                                                </div>
+                                                            </div>
+                                                        </dialog>
                                                     </td>
                                                     )}
 
