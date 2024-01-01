@@ -65,7 +65,9 @@ export default function Authenticated({ user, admin, header, children, member=nu
                         {member && (
                             <div className='flex gap-3 min-h-min'>
                                 {/* Add User */}
+                                {admin && (
                                 <button className="bg-gray-400 hover:bg-gray-500 text-white rounded-2xl px-3" onClick={()=>document.getElementById('modalAddMember_'+project.project_id).showModal()}>add Member +</button>
+                                )}
                                 <dialog id={'modalAddMember_'+project.project_id } className="modal">
                                 <div className="modal-box bg-indigo-950">
 
