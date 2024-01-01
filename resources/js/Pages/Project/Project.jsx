@@ -120,15 +120,12 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
                 </dialog>
 
                 {/* Card */}
-                <div className='flex flex-wrap gap-2 '>
+                <div className='flex justify-around flex-wrap gap-5'>
                     {cards.map((card, index) => (
                         <div className="card w-96 bg-gray-300 shadow-xl" key={index}>
-                                <div className="card-body relative">
+                                <div className="card-body relative flex justify-between">
 
                                     {/* DELETE CARD */}
-                                    {/* <button className='absolute top-3 right-5 bg-red-500 p-2 rounded-lg' onClick={() => handleDeleteCard(card)}>
-
-                                    </button> */}
                                     {admin && (
                                         <>
                                         <button className="absolute top-3 right-5 bg-red-500 hover:bg-red-600 p-2 rounded-lg" onClick={()=>document.getElementById('modalDeleteCard_'+ card.card_id).showModal()}>
@@ -149,16 +146,15 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
                                         </dialog>
                                         </>
                                     )}
-
                                     {/* END DELETE CARD */}
 
                                     <h2 className="card-title">{card.title}</h2>
                                     {/* <p>{card.description}</p> */}
                                     <div className="card-actions justify-center">
-                                        <button className="btn mt-3" onClick={()=>{
+                                        <button className="btn w-full" onClick={()=>{
                                             document.getElementById('modalDetailCard_'+card.card_id).showModal()
                                             decrypt(card.description, card.image, card.job_id)
-                                        }}>open modal</button>
+                                        }}>see detail</button>
 
                                         {/* DETAIL CARD */}
                                         <dialog id={"modalDetailCard_" + card.card_id} className="modal">
@@ -167,7 +163,7 @@ export default function Project({ auth, userJob, project, card, member, jobs }) 
                                                     <h3 className="font-bold text-2xl ps-2">{card.title}</h3>
                                                     <span className='self-center text-2xl text-gray-400'>| {card.job.name_job}</span>
                                                 </div>
-                                                <div className='flex flex-col gap-2'>
+                                                <div className='flex flex-col gap-2 overflow-x-hidden'>
                                                     <img src={'http://localhost:8000/storage/'+(!image ? 'cards/noImage.jpg': image)} alt={(!card.image ? 'tidak ada gambar' : card.image)}/>
 
                                                     <div className=''>
