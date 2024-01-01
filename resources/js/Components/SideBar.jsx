@@ -90,7 +90,7 @@ export default function SideBar({auth})
                         <div className="flex justify-between pe-4 bg-zinc-200 ">
                             <Link href={route("project.detail", project.project_id)} className="flex-1 bg-zinc-200">
                                 <MenuItem key={index}>
-                                    {project.name_project} {project.pivot.job_id}
+                                    {project.name_project}
                                 </MenuItem>
                             </Link>
                             {project.pivot.job_id == 1 && (
